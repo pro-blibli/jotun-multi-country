@@ -581,26 +581,57 @@
             <div class="section-header">
                 <div class="section-number">2</div>
                 <h2 class="section-title">Create Campaign from Template</h2>
-                <p class="section-desc">Use natural language to deploy campaigns across markets in seconds</p>
+                <p class="section-desc">Two flexible ways to deploy campaigns across your markets</p>
             </div>
             
             <div class="step-card">
                 <div class="step-header">
-                    <div class="step-icon">🤖</div>
-                    <h3 class="step-title">Deploy with Claude AI</h3>
+                    <div class="step-icon">🖥️</div>
+                    <h3 class="step-title">Option 1: Deploy from Dashboard</h3>
                 </div>
                 <div class="step-content">
                     <p class="step-description">
-                        Instead of clicking through multiple screens and forms, you can use <strong>Claude (AI assistant)</strong> to create campaigns from your templates using simple, natural language commands. Just describe what you want, and Claude handles the API calls to Talon.One.
+                        Use Talon.One's dashboard interface to manually deploy templates to each market. This gives you full visibility and control at each step of the process.
                     </p>
                     
                     <div class="key-points">
                         <h4>How It Works:</h4>
                         <ul>
-                            <li><strong>You say:</strong> "Deploy the Q2 Paint Rewards template to Malaysia with 10% painter rewards and 700 minimum purchase value"</li>
-                            <li><strong>Claude does:</strong> Creates the campaign in Talon.One's Malaysia application with your specified values</li>
-                            <li><strong>Result:</strong> Campaign ready to activate in seconds, not minutes</li>
-                            <li>No need to remember API endpoints, parameter names, or navigate complex UIs</li>
+                            <li><strong>Step 1:</strong> Navigate to your target market application (e.g., Malaysia)</li>
+                            <li><strong>Step 2:</strong> Click "Create Campaign" → "From Template"</li>
+                            <li><strong>Step 3:</strong> Select your saved template (e.g., "Q2 Paint Scan Rewards")</li>
+                            <li><strong>Step 4:</strong> Fill in placeholder values specific to that market</li>
+                            <li><strong>Step 5:</strong> Review and activate the campaign</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="callout" style="margin-top: 25px; background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); border-left-color: var(--jotun-orange);">
+                        <div class="callout-icon">⏱️</div>
+                        <h3 class="callout-title">Time Required</h3>
+                        <p class="callout-text">
+                            Approximately 2-3 minutes per market. For 20+ countries, this method takes around 40-60 minutes total.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-icon">🤖</div>
+                    <h3 class="step-title">Option 2: Deploy with Claude AI</h3>
+                </div>
+                <div class="step-content">
+                    <p class="step-description">
+                        Use <strong>Claude (AI assistant)</strong> to create campaigns from your templates using simple, natural language commands. Just describe what you want, and Claude handles the API calls to Talon.One across multiple markets simultaneously.
+                    </p>
+                    
+                    <div class="key-points">
+                        <h4>How It Works:</h4>
+                        <ul>
+                            <li><strong>You say:</strong> "Deploy the Q2 Paint Rewards template to Malaysia, Vietnam, and Philippines with 10%, 12%, and 11% painter rewards respectively"</li>
+                            <li><strong>Claude does:</strong> Creates campaigns in all three markets simultaneously with your specified values</li>
+                            <li><strong>Result:</strong> Multiple campaigns deployed in seconds, not minutes</li>
+                            <li>No need to remember API endpoints, navigate UIs, or repeat the same steps 20+ times</li>
                         </ul>
                     </div>
                     
@@ -617,11 +648,27 @@
                         <ul>
                             <li>No technical knowledge required—describe what you want in plain English</li>
                             <li>Deploy to multiple markets with one command</li>
-                            <li>Reduces deployment time from 30 minutes to under 2 minutes</li>
+                            <li>Reduces deployment time from 40-60 minutes to under 3 minutes</li>
                             <li>Fewer errors—Claude validates parameters before creating campaigns</li>
+                            <li>Batch operations: update, extend, or modify multiple campaigns at once</li>
                         </ul>
                     </div>
+                    
+                    <div class="callout" style="margin-top: 25px; background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); border-left-color: var(--jotun-green);">
+                        <div class="callout-icon">⚡</div>
+                        <h3 class="callout-title">Time Required</h3>
+                        <p class="callout-text">
+                            Under 3 minutes for 20+ countries. Claude deploys all campaigns in parallel with a single natural language command.
+                        </p>
+                    </div>
                 </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>💡 Which Option Should You Choose?</h3>
+                <p style="font-size: 1.05rem;">
+                    <strong>Dashboard deployment</strong> is perfect when you need full visibility and manual control for each market, or when deploying to just a few countries. <strong>Claude AI deployment</strong> is ideal for rapid multi-country rollouts, recurring campaigns, or when speed and consistency are priorities. Many teams use the dashboard for initial setup and testing, then switch to Claude for production rollouts.
+                </p>
             </div>
         </div>
         
@@ -703,7 +750,7 @@
         <div class="section">
             <div class="section-header">
                 <h2 class="section-title">Time Savings Comparison</h2>
-                <p class="section-desc">See how templates dramatically reduce deployment time</p>
+                <p class="section-desc">See how templates and automation transform your deployment process</p>
             </div>
             
             <div class="comparison-grid">
@@ -714,32 +761,50 @@
                     <p class="comparison-label">To deploy to 20+ countries</p>
                     <div class="key-points">
                         <ul>
-                            <li>Build campaign in each market</li>
-                            <li>Copy-paste rules 20+ times</li>
-                            <li>High risk of errors</li>
-                            <li>Inconsistent configurations</li>
+                            <li>Build campaign rules from scratch in each market</li>
+                            <li>Copy-paste and adjust logic 20+ times</li>
+                            <li>High risk of configuration errors</li>
+                            <li>Inconsistent campaign structures across markets</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="comparison-card" style="border-top-color: var(--jotun-light-blue);">
+                    <div class="comparison-badge" style="background: var(--jotun-light-blue);">WITH TEMPLATES (Dashboard)</div>
+                    <h3>Template Deployment</h3>
+                    <div class="comparison-time">40-60 mins</div>
+                    <p class="comparison-label">To deploy to 20+ countries</p>
+                    <div class="key-points">
+                        <ul>
+                            <li>Select template in each market application</li>
+                            <li>Customize placeholder values per geography</li>
+                            <li>Consistent campaign structure guaranteed</li>
+                            <li>Manual but streamlined process</li>
                         </ul>
                     </div>
                 </div>
                 
                 <div class="comparison-card" style="border-top-color: var(--jotun-green);">
-                    <div class="comparison-badge" style="background: var(--jotun-green);">WITH TEMPLATES</div>
-                    <h3>Template Deployment</h3>
+                    <div class="comparison-badge" style="background: var(--jotun-green);">WITH TEMPLATES + CLAUDE AI</div>
+                    <h3>AI-Powered Deployment</h3>
                     <div class="comparison-time">&lt;3 mins</div>
                     <p class="comparison-label">To deploy to 20+ countries</p>
                     <div class="key-points">
                         <ul>
                             <li>One-time template configuration</li>
-                            <li>Consistent campaign structure across geographies</li>
-                            <li>Easy handling of multi-country rollouts</li>
+                            <li>Natural language command deploys to all markets</li>
+                            <li>Parallel deployment across geographies</li>
+                            <li>Fully automated with validation</li>
                         </ul>
                     </div>
                 </div>
             </div>
             
             <div class="highlight-box">
-                <h3>🚀 98% Time Savings</h3>
-                <p>Templates reduce campaign deployment from 3 hours to under 3 minutes—giving your team more time for strategy and optimization</p>
+                <h3>🚀 The Efficiency Gains</h3>
+                <p style="font-size: 1.1rem;">
+                    <strong>Templates alone</strong> reduce deployment time by 70% (3 hours → 40-60 minutes). <strong>Templates + Claude AI</strong> reduce it by 98% (3 hours → under 3 minutes). Choose the approach that fits your team's workflow and scale requirements.
+                </p>
             </div>
         </div>
         
@@ -797,7 +862,7 @@
                     <div class="step-icon" style="margin: 0 auto 20px; width: 60px; height: 60px; font-size: 1.8rem;">🎯</div>
                     <h3>Build Once</h3>
                     <p style="color: var(--text-light); margin-top: 15px;">
-                        Create campaign rules in Talon.One's Rule Builder with conditions and effects. Configure placeholders for market flexibility.
+                        Create campaign rules in Talon.One's Rule Builder with conditions (Premium Paints, stakeholder types, minimum values) and effects (reward percentages). Configure placeholders for market flexibility.
                     </p>
                 </div>
                 
@@ -805,23 +870,23 @@
                     <div class="step-icon" style="margin: 0 auto 20px; width: 60px; height: 60px; font-size: 1.8rem;">💾</div>
                     <h3>Save as Template</h3>
                     <p style="color: var(--text-light); margin-top: 15px;">
-                        Turn your tested campaign into a reusable blueprint that's available across all markets instantly.
+                        Turn your tested campaign into a reusable blueprint that's instantly available across all market applications in your Talon.One deployment.
+                    </p>
+                </div>
+                
+                <div class="comparison-card">
+                    <div class="step-icon" style="margin: 0 auto 20px; width: 60px; height: 60px; font-size: 1.8rem;">🖥️</div>
+                    <h3>Deploy from Dashboard</h3>
+                    <p style="color: var(--text-light); margin-top: 15px;">
+                        Use Talon.One's UI to manually deploy templates to each market. Perfect for full visibility and control. Takes 40-60 minutes for 20+ countries.
                     </p>
                 </div>
                 
                 <div class="comparison-card">
                     <div class="step-icon" style="margin: 0 auto 20px; width: 60px; height: 60px; font-size: 1.8rem;">🤖</div>
-                    <h3>Deploy with Claude</h3>
+                    <h3>Deploy with Claude AI</h3>
                     <p style="color: var(--text-light); margin-top: 15px;">
-                        Use natural language commands to create campaigns from templates across Malaysia, Vietnam, Philippines, and beyond.
-                    </p>
-                </div>
-                
-                <div class="comparison-card">
-                    <div class="step-icon" style="margin: 0 auto 20px; width: 60px; height: 60px; font-size: 1.8rem;">🚀</div>
-                    <h3>Go Live Instantly</h3>
-                    <p style="color: var(--text-light); margin-top: 15px;">
-                        Campaigns activate across all markets with locally customized rewards and thresholds in minutes, not hours.
+                        Use natural language commands to deploy campaigns to multiple markets simultaneously. Ideal for speed and scale. Takes under 3 minutes for 20+ countries.
                     </p>
                 </div>
             </div>
@@ -829,7 +894,7 @@
             <div class="highlight-box" style="margin-top: 50px;">
                 <h3>🎉 The Bottom Line</h3>
                 <p style="font-size: 1.1rem;">
-                    Jotun's multi-country campaign rollout strategy combines Talon.One's flexible rule builder with template-based deployment and AI-powered automation. Build your campaign once, configure placeholders for market flexibility, and deploy across 20+ countries in under 3 minutes using natural language commands. This approach eliminates repetitive work, ensures consistency, and empowers your team to focus on strategy rather than manual setup.
+                    Jotun's multi-country campaign rollout strategy combines Talon.One's flexible rule builder with template-based deployment and your choice of deployment method. Build your campaign once with placeholders for market customization, then deploy via dashboard for control (40-60 mins) or Claude AI for speed (under 3 mins). This approach eliminates repetitive work, ensures consistency across 20+ countries, and empowers your team to focus on strategy rather than manual setup.
                 </p>
             </div>
         </div>
