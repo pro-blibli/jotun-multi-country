@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jotun Loyalty Program - Multi-Geography Campaign Management | Talon.One</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --jotun-blue: #003087;
+            --jotun-light-blue: #0066CC;
+            --jotun-orange: #FF6B35;
+            --jotun-yellow: #FFB81C;
+            --jotun-text: #333333;
+            --jotun-gray: #F5F5F5;
+            --gradient-primary: linear-gradient(135deg, var(--jotun-blue) 0%, var(--jotun-light-blue) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--jotun-orange) 0%, var(--jotun-yellow) 100%);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--jotun-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: #fff;
+        }
+        
+        .hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 100px 20px 120px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-30px) translateX(20px); }
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            animation: slideIn 0.8s ease-out;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            margin-bottom: 15px;
+            opacity: 0.95;
+            animation: slideIn 0.8s ease-out 0.2s backwards;
+        }
+        
+        .hero .client {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            animation: slideIn 0.8s ease-out 0.4s backwards;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .nav {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+        }
+        
+        .nav-link {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--jotun-text);
+            text-decoration: none;
+            white-space: nowrap;
+            padding: 10px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover { color: var(--jotun-blue); }
+        .nav-link.active { background: var(--gradient-primary); color: white; }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .section {
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--jotun-blue);
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--jotun-light-blue);
+            margin: 40px 0 20px;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid var(--jotun-blue);
+            box-shadow: 0 8px 25px rgba(0,48,135,0.08);
+        }
+        
+        .info-box-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--jotun-blue);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-box-icon {
+            width: 35px;
+            height: 35px;
+            background: var(--gradient-accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        .hero-card {
+            background: white;
+            border-radius: 15px;
+            padding: 35px 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,48,135,0.08);
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+        
+        .hero-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,48,135,0.15);
+            border-color: var(--jotun-light-blue);
+        }
+        
+        .hero-card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,48,135,0.2);
+        }
+        
+        .hero-card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--jotun-blue);
+            margin-bottom: 15px;
+        }
+        
+        .flow-container {
+            background: var(--jotun-gray);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 900px;
+            gap: 20px;
+        }
+        
+        .flow-step {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,48,135,0.1);
+            flex: 1;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .flow-step:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(0,48,135,0.15);
+        }
+        
+        .flow-step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 15px;
+            box-shadow: 0 4px 15px rgba(0,48,135,0.3);
+        }
+        
+        .flow-step-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--jotun-blue);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .flow-arrow {
+            font-size: 2rem;
+            color: var(--jotun-orange);
+            flex-shrink: 0;
+        }
+        
+        .architecture-diagram {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 30px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .arch-layer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .arch-box {
+            background: white;
+            border-radius: 12px;
+            padding: 25px 30px;
+            box-shadow: 0 8px 25px rgba(0,48,135,0.1);
+            border: 2px solid var(--jotun-light-blue);
+            min-width: 180px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .arch-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,48,135,0.15);
+        }
+        
+        .arch-box-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--jotun-blue);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        
+        .arch-box-subtitle {
+            color: var(--jotun-text);
+            font-size: 0.9rem;
+        }
+        
+        .arch-connector {
+            text-align: center;
+            color: var(--jotun-orange);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .arch-box-highlight {
+            border-color: var(--jotun-orange);
+            background: linear-gradient(135deg, #fff5f0 0%, #ffffff 100%);
+        }
+        
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,48,135,0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--jotun-orange);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,48,135,0.12);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--jotun-blue);
+            margin-bottom: 12px;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .code-block-title {
+            color: var(--jotun-yellow);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .process-steps {
+            margin: 30px 0;
+        }
+        
+        .process-step {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px rgba(0,48,135,0.08);
+            border-left: 4px solid var(--jotun-orange);
+            transition: all 0.3s ease;
+        }
+        
+        .process-step:hover {
+            box-shadow: 0 10px 30px rgba(0,48,135,0.12);
+            transform: translateX(5px);
+        }
+        
+        .step-header {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--jotun-blue);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .step-number {
+            width: 35px;
+            height: 35px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .screenshot-box {
+            background: var(--jotun-gray);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .screenshot-placeholder {
+            background: white;
+            border: 2px dashed var(--jotun-light-blue);
+            border-radius: 8px;
+            padding: 60px 30px;
+            color: var(--jotun-light-blue);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .approach-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .approach-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 15px 40px rgba(0,48,135,0.1);
+            border-left: 6px solid var(--jotun-blue);
+            transition: all 0.3s ease;
+        }
+        
+        .approach-card:hover {
+            box-shadow: 0 20px 50px rgba(0,48,135,0.15);
+            transform: translateY(-5px);
+        }
+        
+        .approach-badge {
+            display: inline-block;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .approach-number {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(0,48,135,0.3);
+        }
+        
+        .approach-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--jotun-blue);
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        ul li {
+            padding: 12px 0 12px 35px;
+            position: relative;
+            line-height: 1.7;
+        }
+        
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--jotun-orange);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 30px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,48,135,0.1);
+        }
+        
+        .comparison-table thead {
+            background: var(--gradient-primary);
+            color: white;
+        }
+        
+        .comparison-table th {
+            padding: 20px;
+            text-align: left;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        .comparison-table tbody tr {
+            transition: all 0.3s ease;
+        }
+        
+        .comparison-table tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .comparison-table tbody tr:hover {
+            background: rgba(0,102,204,0.05);
+        }
+        
+        .comparison-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #E0E0E0;
+        }
+        
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: var(--jotun-blue);
+        }
+        
+        .cta-section {
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+            margin: 60px 0;
+            box-shadow: 0 15px 40px rgba(0,48,135,0.2);
+        }
+        
+        .cta-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta-text {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255,107,53,0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,107,53,0.4);
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--gradient-accent);
+            z-index: 9999;
+            transform-origin: left;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero .subtitle { font-size: 1.1rem; }
+            .section-title { font-size: 2rem; }
+            .feature-cards, .approach-cards { grid-template-columns: 1fr; }
+            .flow-diagram { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Jotun Loyalty Program</h1>
+            <div class="subtitle">Efficient Multi-Geography Campaign Management in Talon.One</div>
+            <div class="client">Empowering Painters, Architects, Dealers & Stakeholders Across Multiple Countries</div>
+        </div>
+    </div>
+    
+    <nav class="nav" id="mainNav">
+        <div class="nav-content">
+            <a href="#overview" class="nav-link active">Overview</a>
+            <a href="#rule-builder" class="nav-link">Rule Builder</a>
+            <a href="#templates" class="nav-link">Creating Templates</a>
+            <a href="#outcomes" class="nav-link">Campaign Rollout</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <!-- Overview Section -->
+        <section id="overview" class="section">
+            <h2 class="section-title">Overview</h2>
+            
+            <div class="info-box">
+                <div class="info-box-title">
+                    <div class="info-box-icon">🎨</div>
+                    <span>About Jotun</span>
+                </div>
+                <p>Jotun is one of the world's leading paint and coating manufacturers, protecting all types of property from iconic buildings to beautiful homes. With operations spanning 17+ countries, Jotun is building a comprehensive loyalty program for painters, architects, dealers, and other stakeholders.</p>
+            </div>
+            
+            <h3 class="section-subtitle">The Challenge</h3>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px;">
+                With each country having a dedicated loyalty manager overseeing campaigns in Talon.One, Jotun needs an efficient way to roll out campaigns across multiple geographies while maintaining local control and flexibility.
+            </p>
+            
+            <div class="hero-card">
+                <div class="hero-card-icon">🌍</div>
+                <h3 class="hero-card-title">Global Scale</h3>
+                <p style="line-height: 1.7; color: var(--jotun-text);">17+ countries with local loyalty managers managing region-specific campaigns</p>
+            </div>
+            
+            <h3 class="section-subtitle">Reward Earning Flow</h3>
+            
+            <div class="flow-container">
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <div class="flow-step-number">1</div>
+                        <div class="flow-step-title">Scan QR Code</div>
+                        <p style="color: var(--jotun-text); font-size: 0.95rem;">Painter scans paint bucket QR code in Jotun App</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">2</div>
+                        <div class="flow-step-title">Data Flows</div>
+                        <p style="color: var(--jotun-text); font-size: 0.95rem;">SKU data + Painter ID + Stakeholder IDs sent to Talon.One</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">3</div>
+                        <div class="flow-step-title">Real-Time Processing</div>
+                        <p style="color: var(--jotun-text); font-size: 0.95rem;">Talon.One processes reward eligibility and validation</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">4</div>
+                        <div class="flow-step-title">Reward Issued</div>
+                        <p style="color: var(--jotun-text); font-size: 0.95rem;">Points/rewards instantly credited to painter's account</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="section-subtitle">The Solution: Multi-Application Architecture</h3>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px;">
+                In Talon.One, you can host multiple applications in a single deployment, with each application having its own currency and timezone. Since all applications are hosted in the same deployment, the integration effort remains one-time, with data attributes and integrations shared across multiple applications. All applications can be linked with the group-wide Loyalty Program, acting as a single source of truth.
+            </p>
+            
+            <div class="architecture-diagram">
+                <div class="arch-layer">
+                    <div class="arch-box arch-box-highlight">
+                        <div class="arch-box-title">Talon.One Deployment</div>
+                        <div class="arch-box-subtitle">Single Integration Point</div>
+                    </div>
+                </div>
+                <div class="arch-connector">↓</div>
+                <div class="arch-layer">
+                    <div class="arch-box">
+                        <div class="arch-box-title">Malaysia</div>
+                        <div class="arch-box-subtitle">MYR, GMT+8</div>
+                    </div>
+                    <div class="arch-box">
+                        <div class="arch-box-title">Vietnam</div>
+                        <div class="arch-box-subtitle">VND, GMT+7</div>
+                    </div>
+                    <div class="arch-box">
+                        <div class="arch-box-title">Philippines</div>
+                        <div class="arch-box-subtitle">PHP, GMT+8</div>
+                    </div>
+                    <div class="arch-box">
+                        <div class="arch-box-title">Thailand</div>
+                        <div class="arch-box-subtitle">THB, GMT+7</div>
+                    </div>
+                    <div class="arch-box">
+                        <div class="arch-box-title">Indonesia</div>
+                        <div class="arch-box-subtitle">IDR, GMT+7</div>
+                    </div>
+                </div>
+                <div class="arch-connector">↓</div>
+                <div class="arch-layer">
+                    <div class="arch-box arch-box-highlight">
+                        <div class="arch-box-title">Group-Wide Loyalty Program</div>
+                        <div class="arch-box-subtitle">Single Source of Truth</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3 class="feature-title">One-Time Integration</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.6;">Build the integration once, deploy across all geographies. Shared data attributes and API connections reduce development overhead.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3 class="feature-title">Easy Expansion</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.6;">Adding new countries is as simple as creating a new application. No additional integration work required.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3 class="feature-title">Secure Authentication</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.6;">Application-specific API keys authenticate network calls for real-time data exchange and reward validation.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧪</div>
+                    <h3 class="feature-title">QA Environment</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.6;">Create a dedicated QA application to test campaigns before rolling them out to live applications available to end users.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Rule Builder Section -->
+        <section id="rule-builder" class="section">
+            <h2 class="section-title">Flexible Rule Builder</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px;">
+                Talon.One's Rule Builder allows you to create sophisticated campaign logic with <strong>multiple conditions and effects</strong> within a single rule. This flexibility enables you to design complex loyalty mechanics that reward different stakeholder behaviors across various scenarios.
+            </p>
+            
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Multiple Conditions</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.6;">Combine stakeholder type, product attributes, time-based rules, and location filters in one rule. Example: Target Gold tier painters who scan premium paints during promotional periods.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Multiple Effects</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.6;">Trigger multiple outcomes simultaneously: award points, apply tier multipliers, issue coupons, send notifications, and track custom metrics—all from a single rule execution.</p>
+                </div>
+            </div>
+            
+            <h3 class="section-subtitle">Example Campaign Rules</h3>
+            
+            <div class="code-block">
+                <div class="code-block-title">Example 1: Premium Paint Bonus Points</div>
+<pre>IF:
+  • Stakeholder Type = "Painter"
+  • Product Category = "Premium Paints"
+  • Bucket Size >= 5L
+  • Loyalty Tier = "Gold"
+
+THEN:
+  • Award 500 loyalty points
+  • Apply 1.5x tier multiplier (750 total points)</pre>
+            </div>
+            
+            <div class="code-block">
+                <div class="code-block-title">Example 2: Seasonal Promotion with Time Targeting</div>
+<pre>IF:
+  • Date Range = June 1 - June 30
+  • Product Category = "Waterproofing" OR "Exterior Paints"
+  • Purchase Amount >= 10,000 (local currency)
+
+THEN:
+  • Award double points (2x multiplier)</pre>
+            </div>
+        </section>
+        
+        <!-- Templates Section -->
+        <section id="templates" class="section">
+            <h2 class="section-title">How to Create Templates in Talon.One</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px;">
+                Campaign templates allow you to create a master campaign configuration that can be reused and deployed across multiple applications with minimal customization. This dramatically reduces the time required to roll out campaigns to multiple geographies.
+            </p>
+            
+            <h3 class="section-subtitle">Step-by-Step Template Creation</h3>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-header">
+                        <span class="step-number">1</span>
+                        <span>Build Your Campaign in QA</span>
+                    </div>
+                    <ul>
+                        <li>Navigate to your QA application in Talon.One</li>
+                        <li>Create a new campaign with all desired rules, conditions, and effects</li>
+                        <li>Configure campaign settings: name, description, dates, budgets</li>
+                        <li>Thoroughly test the campaign using Talon.One's Rule Tester</li>
+                        <li>Validate all conditions trigger correctly and effects execute as expected</li>
+                    </ul>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-header">
+                        <span class="step-number">2</span>
+                        <span>Configure Campaign Template</span>
+                    </div>
+                    <ul>
+                        <li>Once testing is complete, go to Campaign Settings</li>
+                        <li>Click "Save as Template" button</li>
+                        <li>Provide a descriptive template name (e.g., "Premium Paint Bonus Q2 2025")</li>
+                        <li>Add template description explaining the campaign purpose and key parameters</li>
+                        <li>Configure condition placeholders</li>
+                        <li>Template is now saved and available across all applications in your deployment</li>
+                    </ul>
+                    
+                    <div class="screenshot-box">
+                        <img src="screenshot_placeholders.png" alt="Configure Condition Placeholders" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    </div>
+                    
+                    <div class="screenshot-box">
+                        <img src="screenshot_template_save.png" alt="Campaign Settings - Save as Template" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-header">
+                        <span class="step-number">3</span>
+                        <span>Deploy Template to Applications</span>
+                    </div>
+                    <ul>
+                        <li>Navigate to target application (e.g., Jotun Malaysia)</li>
+                        <li>Go to Campaigns → Create New Campaign → "From Template"</li>
+                        <li>Select your saved template from the dropdown</li>
+                        <li>Input condition placeholder value as per template description</li>
+                        <li>Template loads with all rules, conditions, and effects pre-configured</li>
+                    </ul>
+                    
+                    <div class="screenshot-box">
+                        <img src="screenshot_deploy_template.png" alt="Deploy Template - Input Placeholder Values" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-header">
+                        <span class="step-number">4</span>
+                        <span>Customize for Local Market</span>
+                    </div>
+                    <ul>
+                        <li>Update campaign name to include geography (e.g., "Premium Paint Bonus - Malaysia")</li>
+                        <li>Adjust start and end dates for local market timing</li>
+                        <li>Update budget limits to match geography-specific allocation</li>
+                    </ul>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-header">
+                        <span class="step-number">5</span>
+                        <span>Review and Activate</span>
+                    </div>
+                    <ul>
+                        <li>Use Rule Tester to validate campaign works correctly in this application</li>
+                        <li>Review all customizations made for local market</li>
+                        <li>Local loyalty manager approves campaign launch</li>
+                        <li>Set campaign status to "Active" or schedule for future activation</li>
+                        <li>Campaign goes live on configured start date</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-box" style="border-left-color: var(--jotun-orange);">
+                <div class="info-box-title">
+                    <div class="info-box-icon">💡</div>
+                    <span>Template Best Practices</span>
+                </div>
+                <ul>
+                    <li><strong>Clear Naming:</strong> Use descriptive template names that indicate campaign type and timeframe</li>
+                    <li><strong>Documentation:</strong> Add comprehensive descriptions explaining campaign logic and customization points</li>
+                    <li><strong>Version Control:</strong> Include version numbers or dates in template names for tracking iterations</li>
+                    <li><strong>Regular Updates:</strong> Keep templates updated based on learnings from deployed campaigns</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Outcomes Section -->
+        <section id="outcomes" class="section">
+            <h2 class="section-title">Global Campaign Rollout Strategies</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px;">
+                Talon.One offers three strategic approaches for rolling out campaigns across multiple geographies, each with different levels of automation and control.
+            </p>
+            
+            <div class="approach-cards">
+                <div class="approach-card">
+                    <div class="approach-number">1</div>
+                    <div class="approach-badge">MANUAL APPROACH</div>
+                    <h3 class="approach-title">Duplicate Campaigns from QA</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.7; margin-bottom: 20px;">
+                        Manually duplicate campaigns from the QA application across multiple live applications. This approach gives maximum control and visibility at each step.
+                    </p>
+                    
+                    <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--jotun-blue); margin: 20px 0 15px;">Process:</h4>
+                    <ul>
+                        <li>Create and test campaign in QA application</li>
+                        <li>Navigate to campaign → Actions → Duplicate Campaign</li>
+                        <li>Select target application (e.g., Malaysia, Vietnam, Philippines)</li>
+                        <li>Campaign copies with all rules, conditions, and effects intact</li>
+                        <li>Adjust dates, budgets, and currency-specific values per geography</li>
+                        <li>Local loyalty manager reviews and activates</li>
+                        <li>Repeat for each geography</li>
+                    </ul>
+                    
+                    <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #28a745; margin: 20px 0 10px;">✅ Advantages:</h4>
+                    <ul>
+                        <li>No technical skills required</li>
+                        <li>Complete visibility and control at each step</li>
+                        <li>Easy to customize for local market requirements</li>
+                        <li>No risk of automation errors</li>
+                        <li>Application/country specific loyalty manager can duplicate and change values to activate campaign in minutes</li>
+                    </ul>
+                    
+                    <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #ffc107; margin: 20px 0 10px;">⚠️ Considerations:</h4>
+                    <ul>
+                        <li>Time-consuming with many geographies (17+ countries) if this is handled by a group level loyalty manager</li>
+                        <li>Repetitive manual work for each application if this is handled by a group level loyalty manager</li>
+                        <li>Risk of human error in duplication process</li>
+                        <li>Difficult to maintain consistency across all markets</li>
+                    </ul>
+                </div>
+                
+                <div class="approach-card" style="border-left-color: var(--jotun-light-blue);">
+                    <div class="approach-number">2</div>
+                    <div class="approach-badge">TEMPLATE APPROACH</div>
+                    <h3 class="approach-title">Templatize Base Campaign</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.7; margin-bottom: 20px;">
+                        Create a base campaign template in the QA application and use Talon.One's campaign templates feature to roll out campaigns efficiently. Each geography's loyalty manager activates the template in their application.
+                    </p>
+                    
+                    <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--jotun-blue); margin: 20px 0 15px;">Process:</h4>
+                    <ul>
+                        <li>Create and thoroughly test campaign in QA application</li>
+                        <li>Save campaign as a template with placeholder values for geography-specific parameters</li>
+                        <li>Distribute template to all geography applications</li>
+                        <li>Local loyalty manager opens template in their application</li>
+                        <li>Manager customizes dates, budgets, and local parameters</li>
+                        <li>Manager activates campaign when ready</li>
+                        <li>Template remains available for future use</li>
+                    </ul>
+                    
+                    <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #28a745; margin: 20px 0 10px;">✅ Advantages:</h4>
+                    <ul>
+                        <li>Faster than manual duplication across many geographies</li>
+                        <li>Maintains consistency with base template structure</li>
+                        <li>Local loyalty managers retain control and flexibility</li>
+                        <li>Reusable templates for recurring campaigns (e.g., quarterly promotions)</li>
+                        <li>Minimal technical skills required</li>
+                    </ul>
+                    
+                    <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #ffc107; margin: 20px 0 10px;">⚠️ Considerations:</h4>
+                    <ul>
+                        <li>Requires manual activation per geography</li>
+                        <li>Each loyalty manager needs to remember to activate</li>
+                        <li>Risk of inconsistent launch timing across geographies</li>
+                        <li>Template updates don't automatically propagate to existing campaigns</li>
+                    </ul>
+                </div>
+                
+                <div class="approach-card" style="border-left-color: var(--jotun-orange);">
+                    <div class="approach-number">3</div>
+                    <div class="approach-badge">AUTOMATED APPROACH</div>
+                    <h3 class="approach-title">API-Driven Campaign Deployment</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.7; margin-bottom: 20px;">
+                        Use Talon.One's "Create Campaign via Template" API to programmatically roll out campaigns across all geographies. This can be triggered via an internal UI or an MCP (Model Context Protocol) connector.
+                    </p>
+                    
+                    <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--jotun-blue); margin: 20px 0 15px;">Process:</h4>
+                    <ul>
+                        <li>Create and test campaign template in QA application</li>
+                        <li>Define geography-specific parameters in configuration file (dates, budgets, currencies)</li>
+                        <li>Build internal UI or configure MCP connector to call Talon.One API</li>
+                        <li>Select target geographies from UI</li>
+                        <li>Click "Deploy Campaign" button</li>
+                        <li>API automatically creates campaigns in all selected applications</li>
+                        <li>Local loyalty managers receive notification to review and activate</li>
+                    </ul>
+                    
+                    <div class="code-block">
+                        <div class="code-block-title">API Example: Create Campaign via Template</div>
+<pre>POST /v1/applications/{applicationId}/campaigns/from_template
+
+{
+  "templateId": 789,
+  "name": "Premium Paint Bonus - Malaysia",
+  "startTime": "2025-06-01T00:00:00Z",
+  "endTime": "2025-06-30T23:59:59Z",
+  "budgetLimit": 50000,
+  "state": "disabled"  // Start disabled for local manager review
+}</pre>
+                    </div>
+                    
+                    <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #28a745; margin: 20px 0 10px;">✅ Advantages:</h4>
+                    <ul>
+                        <li>Highly scalable - deploy to 17+ countries in minutes</li>
+                        <li>Eliminates manual repetition entirely</li>
+                        <li>Consistent campaign structure across all geographies</li>
+                        <li>Reduces human error in campaign setup</li>
+                        <li>Version-controlled campaign configurations</li>
+                        <li>Can integrate with approval workflows and scheduling systems</li>
+                        <li>Fast response to market opportunities</li>
+                    </ul>
+                    
+                    <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #ffc107; margin: 20px 0 10px;">⚠️ Considerations:</h4>
+                    <ul>
+                        <li>Requires development resources for initial setup</li>
+                        <li>Higher initial time investment to build UI or MCP connector</li>
+                        <li>Need API knowledge and error handling implementation</li>
+                        <li>Requires ongoing maintenance of automation scripts</li>
+                        <li>Must handle API rate limits for bulk operations</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 class="section-subtitle">Comparison Matrix</h3>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Criteria</th>
+                        <th>Manual Duplication</th>
+                        <th>Template Approach</th>
+                        <th>API-Driven</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Setup Complexity</td>
+                        <td>None - use Talon.One UI</td>
+                        <td>Low - create templates</td>
+                        <td>High - build automation</td>
+                    </tr>
+                    <tr>
+                        <td>Time to Deploy (17 countries) - Group Level</td>
+                        <td>2-3 hours</td>
+                        <td>1-2 hours</td>
+                        <td>5-10 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>Scalability</td>
+                        <td>Low - linear time increase</td>
+                        <td>Medium - still manual per geography</td>
+                        <td>Very High - scales effortlessly</td>
+                    </tr>
+                    <tr>
+                        <td>Local Manager Control</td>
+                        <td>Full control at every step</td>
+                        <td>Control over activation and customization</td>
+                        <td>Review and activate pre-created campaigns</td>
+                    </tr>
+                    <tr>
+                        <td>Consistency Across Markets</td>
+                        <td>Medium - risk of human error</td>
+                        <td>High - base template structure maintained</td>
+                        <td>Very High - automated from single source</td>
+                    </tr>
+                    <tr>
+                        <td>Technical Skills Required</td>
+                        <td>None</td>
+                        <td>Minimal - basic Talon.One knowledge</td>
+                        <td>Advanced - API and development skills</td>
+                    </tr>
+                    <tr>
+                        <td>Best For</td>
+                        <td>Small number of geographies (1-5), one-off campaigns</td>
+                        <td>Medium number of geographies (5-10), recurring campaigns</td>
+                        <td>Large number of geographies (10+), frequent campaign launches</td>
+                    </tr>
+                    <tr>
+                        <td>Initial Investment</td>
+                        <td>Zero - start immediately</td>
+                        <td>Low - template creation only</td>
+                        <td>High - development time required</td>
+                    </tr>
+                    <tr>
+                        <td>Long-Term Efficiency</td>
+                        <td>Low - same manual work each time</td>
+                        <td>Medium - faster but still manual steps</td>
+                        <td>Very High - amortize upfront investment</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="info-box" style="border-left-color: var(--jotun-blue); margin-top: 40px;">
+                <div class="info-box-title">
+                    <div class="info-box-icon">💡</div>
+                    <span>Recommendation for Jotun</span>
+                </div>
+                <p style="margin-bottom: 15px;">
+                    <strong>Start with Approach 2 (Template Approach)</strong> for your initial rollout across 17+ countries. This provides a good balance between efficiency and control, allowing local loyalty managers to maintain oversight while significantly reducing deployment time.
+                </p>
+                <p>
+                    <strong>Evolve to Approach 3 (API-Driven)</strong> once you have 6+ months of operational experience and are launching campaigns frequently (monthly or more). The upfront development investment will pay dividends with increased campaign velocity and reduced manual work for your loyalty managers.
+                </p>
+            </div>
+        </section>
+        
+        <!-- MCP Automation Section -->
+        <section id="mcp-automation" class="section">
+            <h2 class="section-title">Automating with MCP & Template API</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px;">
+                For organizations seeking maximum efficiency, an internal MCP (Model Context Protocol) connector integrated with Talon.One's Template API can fully automate the campaign deployment process across all geographies.
+            </p>
+            
+            <div class="info-box" style="border-left-color: var(--jotun-orange);">
+                <div class="info-box-title">
+                    <div class="info-box-icon">🤖</div>
+                    <span>What is MCP?</span>
+                </div>
+                <p>Model Context Protocol (MCP) is an open protocol that enables AI assistants like Claude to securely connect with external systems and APIs. By building an internal MCP connector, you can allow your team to deploy campaigns across multiple geographies using natural language commands.</p>
+            </div>
+            
+            <h3 class="section-subtitle">How MCP + Template API Works</h3>
+            
+            <div class="flow-container">
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <div class="flow-step-number">1</div>
+                        <div class="flow-step-title">Natural Language Request</div>
+                        <p style="color: var(--jotun-text); font-size: 0.95rem;">Loyalty manager: "Deploy Premium Paint campaign to all ASEAN markets"</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">2</div>
+                        <div class="flow-step-title">MCP Processing</div>
+                        <p style="color: var(--jotun-text); font-size: 0.95rem;">MCP connector interprets request and identifies target applications</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">3</div>
+                        <div class="flow-step-title">API Calls</div>
+                        <p style="color: var(--jotun-text); font-size: 0.95rem;">Automated API calls to Talon.One Template API for each geography</p>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">4</div>
+                        <div class="flow-step-title">Campaigns Created</div>
+                        <p style="color: var(--jotun-text); font-size: 0.95rem;">Campaigns deployed to Malaysia, Vietnam, Philippines, Thailand, Indonesia</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="section-subtitle">Benefits of MCP Automation</h3>
+            
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Instant Deployment</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.6;">Deploy campaigns to 17+ countries in seconds with a single natural language command, eliminating hours of manual work.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3 class="feature-title">Natural Language Interface</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.6;">No need to learn complex APIs or UIs. Simply describe what you want in plain language: "Deploy summer promotion to Southeast Asia markets starting June 1st".</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Intelligent Parameter Mapping</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.6;">MCP automatically maps geography-specific parameters like currency, timezone, and budget allocations based on your predefined rules.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">Batch Operations</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.6;">Execute complex multi-step workflows: "Clone Q1 campaign, update budgets to 150%, deploy to all markets except Indonesia, and notify local managers".</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3 class="feature-title">Audit Trail</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.6;">Every MCP-triggered deployment is logged with timestamp, user, and parameters used, ensuring full traceability and compliance.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3 class="feature-title">Built-in Safeguards</h3>
+                    <p style="color: var(--jotun-text); line-height: 1.6;">Configure approval workflows, budget thresholds, and validation rules to prevent accidental deployments or overspending.</p>
+                </div>
+            </div>
+            
+            <h3 class="section-subtitle">Example MCP Commands</h3>
+            
+            <div class="code-block">
+                <div class="code-block-title">Example 1: Simple Deployment</div>
+<pre>User: "Deploy the Premium Paint Bonus template to Malaysia, Vietnam, and Philippines"
+
+MCP Response: 
+✓ Created campaign in Malaysia (MYR 50,000 budget)
+✓ Created campaign in Vietnam (VND 500M budget)  
+✓ Created campaign in Philippines (PHP 250,000 budget)
+→ 3 campaigns created in 4.2 seconds
+→ Notifications sent to local loyalty managers</pre>
+            </div>
+            
+            <div class="code-block">
+                <div class="code-block-title">Example 2: Advanced Deployment with Customization</div>
+<pre>User: "Deploy summer waterproofing campaign to all ASEAN markets with 
+2x budget for monsoon regions (Vietnam, Philippines, Thailand) and 
+start date of June 1st"
+
+MCP Response:
+✓ Malaysia - MYR 50,000 budget (standard)
+✓ Vietnam - VND 1B budget (2x monsoon adjustment)
+✓ Philippines - PHP 500,000 budget (2x monsoon adjustment)  
+✓ Thailand - THB 400,000 budget (2x monsoon adjustment)
+✓ Indonesia - IDR 500M budget (standard)
+→ 5 campaigns created with custom budgets
+→ All campaigns scheduled for June 1st activation</pre>
+            </div>
+            
+            <div class="info-box" style="border-left-color: var(--jotun-blue); margin-top: 40px;">
+                <div class="info-box-title">
+                    <div class="info-box-icon">🚀</div>
+                    <span>Getting Started with MCP Automation</span>
+                </div>
+                <p style="margin-bottom: 15px;">
+                    Building an internal MCP connector requires development resources but provides significant long-term efficiency gains. The typical implementation timeline is 2-4 weeks for a basic connector, with ongoing enhancements based on team feedback.
+                </p>
+                <p style="margin-bottom: 15px;">
+                    <strong>Key Components Needed:</strong>
+                </p>
+                <ul>
+                    <li>MCP server implementation (handles natural language processing and API orchestration)</li>
+                    <li>Talon.One Template API integration (authentication, endpoint configuration)</li>
+                    <li>Geography mapping configuration (defines application IDs, currencies, timezones, budget rules)</li>
+                    <li>Permission and approval workflow logic (ensures proper access control)</li>
+                    <li>Logging and monitoring infrastructure (tracks all automated deployments)</li>
+                </ul>
+                <p style="margin-top: 15px;">
+                    <strong>ROI Consideration:</strong> If your organization deploys campaigns monthly or more frequently across 10+ geographies, MCP automation typically pays for itself within 3-6 months through time savings alone.
+                </p>
+            </div>
+        </section>
+    </div>
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { root: null, root
